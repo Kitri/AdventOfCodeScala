@@ -8,8 +8,17 @@ object Advent {
     println(s"The correct value for the report is $correctValueForReport and $correctValueForReport2")
   }
 
+  def countInvalidPasswords(): Unit = {
+    val input = InputParser.parseInput("day2.txt")
+    val invalidPasswords = PasswordManager.countValidPasswords(input)
+
+    println(s"Invalid password count: $invalidPasswords")
+
+  }
+
   def main(args: Array[String]): Unit = {
     processReportRepair()
+    countInvalidPasswords()
 
   }
 }
