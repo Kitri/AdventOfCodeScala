@@ -1,9 +1,9 @@
 object PasswordManager {
 
   case class Password(
-   minRepetitions: Int,
-   maxRepetitions: Int,
-   repetitionChar: Char,
+   index1: Int,
+   index2: Int,
+   char: Char,
    password: String
   )
 
@@ -22,10 +22,22 @@ object PasswordManager {
   }
 
   def checkPassword(validPassword: String): Boolean = {
-    val password = processPassword(validPassword)
-    val occurrences = password.password.count(_ == password.repetitionChar)
+    val pass = processPassword(validPassword)
 
-    occurrences >= password.minRepetitions && occurrences <= password.maxRepetitions
+    val first = pass.password.charAt(pass.index1-1) == pass.char
+    val second = pass.password.charAt(pass.index2-1) == pass.char
+
+    first ^ second
+
+    /*
+        first   |  second  | expectedOutcome
+          1         1           0
+          1         0           1
+          0         1           1
+          0         0           0
+
+     */
+
   }
 
   def countValidPasswords(passwords: List[String]): Int = {
