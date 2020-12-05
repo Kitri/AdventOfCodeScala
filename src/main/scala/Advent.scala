@@ -16,9 +16,17 @@ object Advent {
 
   }
 
+  def countTreesInTobogganTrajectory(): Unit = {
+    val input = InputParser.parseInput("day3.txt")
+    val trees = TobogganTravel.countTreesTrajectory(input)
+
+    println(s"Number of trees: $trees")
+  }
+
   def main(args: Array[String]): Unit = {
     processReportRepair()
     countInvalidPasswords()
+    countTreesInTobogganTrajectory()
 
   }
 }
