@@ -18,14 +18,21 @@ object Advent {
 
   def countTreesInTobogganTrajectory(): Unit = {
     val input = InputParser.parseInput("day3.txt")
-    val trees = TobogganTravel.countTreesTrajectory(input)
+    val trees1Right = TobogganTravel.countTreesTrajectory(input, 1, 1)
+    val trees3Right = TobogganTravel.countTreesTrajectory(input, 3, 1 )
+    val trees5Right = TobogganTravel.countTreesTrajectory(input, 5, 1)
+    val trees7Right = TobogganTravel.countTreesTrajectory(input, 7, 1)
+    val trees1Right2Down = TobogganTravel.countTreesTrajectory(input, 1, 2)
 
-    println(s"Number of trees: $trees")
+    val multiplied = BigInt(trees1Right) * BigInt(trees3Right) * BigInt(trees5Right) * BigInt(trees7Right) * BigInt(trees1Right2Down)
+
+    println(s"Number of trees: 1 - $trees1Right; 3 - $trees3Right; 5 - $trees5Right; 7 - $trees7Right; 1/2 - $trees1Right2Down")
+    print(s"Multiplied: $multiplied")
   }
 
   def main(args: Array[String]): Unit = {
-    processReportRepair()
-    countInvalidPasswords()
+//    processReportRepair()
+//    countInvalidPasswords()
     countTreesInTobogganTrajectory()
 
   }
