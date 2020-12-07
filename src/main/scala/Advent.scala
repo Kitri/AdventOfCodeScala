@@ -30,10 +30,22 @@ object Advent {
     print(s"Multiplied: $multiplied")
   }
 
+  def countValidPassports(): Unit = {
+    val input = InputParser.parseInput("day4.txt")
+    val string = input.mkString("\n")
+    val split = string.split("\n\n").map(_.replace("\n"," ")).toList
+
+    val validPassports = TobogganTravel.countValidPassports(split)
+
+    print(s"Valid Passports: ${validPassports}")
+
+  }
+
   def main(args: Array[String]): Unit = {
 //    processReportRepair()
 //    countInvalidPasswords()
-    countTreesInTobogganTrajectory()
+//    countTreesInTobogganTrajectory()
+      countValidPassports()
 
   }
 }
