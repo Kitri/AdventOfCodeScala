@@ -1,3 +1,4 @@
+import scala.collection.immutable
 object Advent {
 
   def processReportRepair(): Unit = {
@@ -51,12 +52,35 @@ object Advent {
     println(s"My Seat! ${mySeat.head}")
   }
 
+  def transformToCounts(str: String): Map[Char, Int] = {
+    val distinctChars = str.toCharArray.distinct
+
+    distinctChars.map(x => (x -> str.count(_ == x))).toMap
+  }
+
+  def countAnswers(): Unit = {
+    val input = InputParser.parseInput("day6.txt")
+    val string = input.mkString("\n")
+    val split = string.split("\n\n").map(_.replace("\n",",")).map(x => x.split(",")).toList
+
+    //(count of people, occurrences of characters)
+    val processed: List[(Int, Map[Char, Int])] = split.map(s => (s.length, transformToCounts(s.mkString(""))))
+
+    val filtered = processed.map(x => x._2.filter{ case (_,v) => v == x._1})
+
+    val finalSum = filtered.map(_.size).sum
+
+    print(s"Sum of answers = $finalSum")
+  }
+
   def main(args: Array[String]): Unit = {
-//    processReportRepair()
-//    countInvalidPasswords()
-//    countTreesInTobogganTrajectory()
-//    countValidPassports()
-      findSeat()
+    processReportRepair()
+    countInvalidPasswords()
+    countTreesInTobogganTrajectory()
+    countValidPassports()
+    findSeat()
+    countAnswers()
+
 
 
   }

@@ -70,5 +70,11 @@ class TobogganTravelSpec extends Specification {
 
       TobogganTravel.getFlightSeatIds(input) should_== expectedOutput
     }
+
+    "count answers" in {
+      val input = List("abc", "abc", "abac","aaaa", "b")
+
+      input.map(_.toCharArray.distinct.length).sum should_== 11
+    }
   }
 }
