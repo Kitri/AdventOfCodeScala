@@ -52,5 +52,23 @@ class TobogganTravelSpec extends Specification {
 
       TobogganTravel.countValidPassports(input) should_== 2
     }
+
+    "find seat rows and columns" in {
+      "FBFBBFFRLR".splitAt(7) should_== ("FBFBBFF", "RLR")
+      TobogganTravel.findPosition("FBFBBFF".toCharArray.toList, 0, 127) should_== 44
+      TobogganTravel.findPosition("BFFFBBF".toCharArray.toList, 0, 127) should_== 70
+      TobogganTravel.findPosition("FFFBBBF".toCharArray.toList, 0, 127) should_== 14
+      TobogganTravel.findPosition("BBFFBBF".toCharArray.toList, 0, 127) should_== 102
+      TobogganTravel.findPosition("RLR".toCharArray.toList, 0, 7) should_== 5
+      TobogganTravel.findPosition("RRR".toCharArray.toList, 0, 7) should_== 7
+      TobogganTravel.findPosition("RLL".toCharArray.toList, 0, 7) should_== 4
+    }
+
+    "find seat IDs" in {
+      val input = List("BFFFBBFRRR","FFFBBBFRRR","BBFFBBFRLL")
+      val expectedOutput = List(567, 119, 820)
+
+      TobogganTravel.getFlightSeatIds(input) should_== expectedOutput
+    }
   }
 }

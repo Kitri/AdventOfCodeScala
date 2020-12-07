@@ -41,11 +41,23 @@ object Advent {
 
   }
 
+  def findSeat(): Unit = {
+    val input = InputParser.parseInput("day5.txt")
+    val seats = TobogganTravel.getFlightSeatIds(input)
+    val allSeats = TobogganTravel.getAllSeatIds()
+    val diffies = allSeats.diff(seats)
+    val mySeat = diffies.filter(d => !(diffies.contains(d + 1) || diffies.contains(d - 1)))
+
+    println(s"My Seat! ${mySeat.head}")
+  }
+
   def main(args: Array[String]): Unit = {
 //    processReportRepair()
 //    countInvalidPasswords()
 //    countTreesInTobogganTrajectory()
-      countValidPassports()
+//    countValidPassports()
+      findSeat()
+
 
   }
 }
