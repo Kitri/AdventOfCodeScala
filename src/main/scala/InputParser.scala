@@ -13,4 +13,8 @@ object InputParser {
     parseInput(fileName).map(_.toInt )
   }
 
+  def parseInputToBigInt(fileName: String): List[BigInt] = {
+    parseInput(fileName).map(BigInt(_))
+  }
+
 }

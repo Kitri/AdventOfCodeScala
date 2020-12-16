@@ -80,6 +80,14 @@ object Advent {
     println(s"Output $output")
   }
 
+  def findXMASEncoderMistake(): Unit = {
+    val input = InputParser.parseInputToBigInt("day9.txt")
+    val mistake = Encoder.findXMASMistake(input, 25)
+    val output = Encoder.findSumInList(input,mistake, 0, List.empty)
+    val sum = output.max + output.min
+    println(s"Encoder output $sum")
+  }
+
   def main(args: Array[String]): Unit = {
 //    processReportRepair()
 //    countInvalidPasswords()
@@ -89,7 +97,8 @@ object Advent {
 //    countAnswers()
 //    println(BagBS.part1())
 //    println(BagBS.part2())
-      findAccumulatorAtDuplicateInstruction()
+//      findAccumulatorAtDuplicateInstruction()
+    findXMASEncoderMistake()
 
   }
 }
