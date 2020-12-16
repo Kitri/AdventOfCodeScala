@@ -73,6 +73,13 @@ object Advent {
     print(s"Sum of answers = $finalSum")
   }
 
+  def findAccumulatorAtDuplicateInstruction(): Unit = {
+    val input = InputParser.parseInput("day8.txt")
+    val output = GameConsole.getAccValue(input)
+
+    println(s"Output $output")
+  }
+
   def main(args: Array[String]): Unit = {
 //    processReportRepair()
 //    countInvalidPasswords()
@@ -82,5 +89,7 @@ object Advent {
 //    countAnswers()
 //    println(BagBS.part1())
 //    println(BagBS.part2())
+      findAccumulatorAtDuplicateInstruction()
+
   }
 }
