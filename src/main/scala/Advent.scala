@@ -38,7 +38,7 @@ object Advent {
 
     val validPassports = TobogganTravel.countValidPassports(split)
 
-    print(s"Valid Passports: ${validPassports}")
+    print(s"Valid Passports: $validPassports")
 
   }
 
@@ -55,7 +55,7 @@ object Advent {
   def transformToCounts(str: String): Map[Char, Int] = {
     val distinctChars = str.toCharArray.distinct
 
-    distinctChars.map(x => (x -> str.count(_ == x))).toMap
+    distinctChars.map(x => x -> str.count(_ == x)).toMap
   }
 
   def countAnswers(): Unit = {
@@ -74,14 +74,13 @@ object Advent {
   }
 
   def main(args: Array[String]): Unit = {
-    processReportRepair()
-    countInvalidPasswords()
-    countTreesInTobogganTrajectory()
-    countValidPassports()
-    findSeat()
-    countAnswers()
-
-
-
+//    processReportRepair()
+//    countInvalidPasswords()
+//    countTreesInTobogganTrajectory()
+//    countValidPassports()
+//    findSeat()
+//    countAnswers()
+//    println(BagBS.part1())
+//    println(BagBS.part2())
   }
 }
