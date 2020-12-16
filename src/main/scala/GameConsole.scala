@@ -1,23 +1,39 @@
 object GameConsole {
 
-  def getAccValue(input: List[String]): Int = {
-    val instructions = processInstructions(input)
-    process(instructions, instructions.head, 0, List.empty)
-
+  def findPossibleInstructions(allInstructions: List[Instruction], instructions: List[Instruction], listy: List[List[Instruction]]): List[List[Instruction]] = instructions match {
+    case Nil => listy
+    case head :: tail =>
+      if(head.instruction == "jmp") {
+        val newInstructions = allInstructions.updated(head.index, Instruction(head.index, "nop", head.direction, head.amount))
+        findPossibleInstructions(allInstructions, tail, listy :+ newInstructions)
+      }
+      else if(head.instruction == "nop") {
+        val newInstructions = allInstructions.updated(head.index, Instruction(head.index, "jmp", head.direction, head.amount))
+        findPossibleInstructions(allInstructions, tail, listy :+ newInstructions)
+      }
+      else
+        findPossibleInstructions(allInstructions, tail, listy)
   }
 
-  def process(instructions: List[Instruction], instruction: Instruction, acc: Int, indexesProcessed: List[Int]): Int = {
-    if(indexesProcessed.contains(instruction.index)) acc
+  def getAccValue(input: List[String]): Int = {
+    val instructions = processInstructions(input)
+    val newInstructions = findPossibleInstructions(instructions, instructions, List.empty)
+    val xx = newInstructions.map( process(_, 0, 0, List.empty) )
+    xx.filter(_ != -1).head
+  }
+
+  def process(instructions: List[Instruction], index: Int, acc: Int, indexesProcessed: List[Int]): Int = {
+    if(index >= instructions.size || index < 0) acc
+    else if(indexesProcessed.contains(index)) -1
     else {
-      val index = instruction.index
+      val instruction = instructions(index)
       instruction.instruction match {
-        case "nop" => process(instructions, instructions(index + 1), acc, indexesProcessed :+ index)
-        case "acc" => process(instructions, instructions(index + 1), adjustAcc(acc, instruction), indexesProcessed :+ index)
-        case "jmp" => process(instructions, instructions(getJumpIndex(index, instruction)), acc, indexesProcessed :+ index)
+        case "nop" => process(instructions, index + 1, acc, indexesProcessed :+ index)
+        case "acc" => process(instructions, index + 1, adjustAcc(acc, instruction), indexesProcessed :+ index)
+        case "jmp" => process(instructions, getJumpIndex(index, instruction), acc, indexesProcessed :+ index)
       }
     }
   }
-
   def getJumpIndex(index: Int, instruction: Instruction): Int = {
     if(instruction.direction == "+") index + instruction.amount
     else index - instruction.amount
